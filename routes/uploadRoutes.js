@@ -20,7 +20,6 @@ module.exports = (app) => {
       Expires: 120,
     };
     s3.getSignedUrl('putObject', params, (err, url) => {
-      console.log('The URL is', url);
       res.send({ key, url });
     });
   });
