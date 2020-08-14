@@ -7,6 +7,8 @@ import { withRouter } from 'react-router-dom';
 import * as actions from '../../actions';
 
 class BlogFormReview extends Component {
+  state = { file: null };
+
   renderFields() {
     const { formValues } = this.props;
 
@@ -24,7 +26,7 @@ class BlogFormReview extends Component {
     const { onCancel } = this.props;
 
     return (
-      <div>
+      <div className="card-action">
         <button
           className="yellow darken-3 white-text btn-flat"
           onClick={onCancel}
@@ -39,22 +41,52 @@ class BlogFormReview extends Component {
     );
   }
 
+  renderAddImageButton() {
+    return (
+      <div>
+        <h5>Add an Image</h5>
+        <div className="file-field input-field">
+          <div className="btn-floating waves-effect waves-light red">
+            <i className="material-icons">image</i>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={this.onFileChange.bind(this)}
+            />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   onSubmit(event) {
     event.preventDefault();
 
     const { submitBlog, history, formValues } = this.props;
 
-    submitBlog(formValues, history);
+    submitBlog(formValues, this.state.file, history);
+  }
+
+  onFileChange(event) {
+    this.setState({ file: event.target.files[0] });
   }
 
   render() {
     return (
-      <form onSubmit={this.onSubmit.bind(this)}>
-        <h5>Please confirm your entries</h5>
-        {this.renderFields()}
-
-        {this.renderButtons()}
-      </form>
+      <div className="row">
+        <div className="col s12 m12">
+          <div className="card">
+            <form onSubmit={this.onSubmit.bind(this)}>
+              <div className="card-content">
+                <h5>Please confirm your entries</h5>
+                {this.renderFields()}
+                {this.renderAddImageButton()}
+              </div>
+              {this.renderButtons()}
+            </form>
+          </div>
+        </div>
+      </div>
     );
   }
 }

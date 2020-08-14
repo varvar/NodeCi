@@ -5,4 +5,6 @@ module.exports = {
   mongoURI: 'mongodb://localhost/blog',
   cookieKey: '123123123',
   redisUrl: 'redis://127.0.0.1:6379',
+  accessKeyId: 'AKIAXQF2AMNE56HW7OTU',
+  secretAccessKey: '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',
 };
